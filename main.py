@@ -120,6 +120,13 @@ def training(epochs=1, batch_size=128):
 
         if e == 1 or e % 50 == 0:
             plot_generated_images(e, generator)
+        if e == 1 or e % 100 == 0:
+            gan.save(f"models/gan_full_epoch_{e}.h5")
+            gan.save_weights(f"models/gan_weights_epoch_{e}.h5")
+            discriminator.save(f"models/discriminator_full_epoch_{e}.h5")
+            discriminator.save_weights(f"models/discriminator_weights_epoch_{e}.h5")
+            generator.save(f"models/generator_full_epoch_{e}.h5")
+            generator.save_weights(f"models/generator_weights_epoch_{e}.h5")
 
 
 training(400, 32)
