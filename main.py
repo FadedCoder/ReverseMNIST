@@ -118,7 +118,7 @@ def training(epochs=1, batch_size=128):
             discriminator.trainable = False
             gan.train_on_batch([noise, fake_labels], [valid, fake_labels])
 
-        if e == 1 or e % 10 == 0:
+        if e == 1 or e % 50 == 0:
             plot_generated_images(e, generator)
 
 
