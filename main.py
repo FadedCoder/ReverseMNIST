@@ -83,12 +83,12 @@ def plot_generated_images(epoch, generator, examples=100, dim=(10, 10), figsize=
     noise = np.random.normal(loc=0, scale=1, size=[examples, 100])
     rint = np.random.randint(0, 10, [examples, 1])
     generated_images = generator.predict([noise, rint])
-    generated_images = generated_images.reshape(100, 28, 28)
+    generated_images = 0.5 * generated_images + 0.5
     plt.figure(figsize=figsize)
     for i in range(generated_images.shape[0]):
         plt.subplot(dim[0], dim[1], i+1)
         plt.title(rint[i][0])
-        plt.imshow(generated_images[i], interpolation='nearest')
+        plt.imshow(generated_images[i, :, :, 0], cmap='gray', interpolation='nearest')
         plt.axis('off')
     plt.tight_layout()
     plt.savefig('gan_generated_image_%d.png' % epoch)
