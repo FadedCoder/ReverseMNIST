@@ -1,6 +1,8 @@
 import numpy as np
-from keras.layers import (Dense, Dropout, Input, Conv2D, Reshape, Flatten, LeakyReLU, multiply,
-                          Embedding, BatchNormalization, UpSampling2D, Activation, ReLU)
+from keras.layers import (Dense, Dropout, Input, Conv2D, Reshape,
+                          Flatten, LeakyReLU, multiply,
+                          Embedding, BatchNormalization,
+                          UpSampling2D, Activation, ReLU, ZeroPadding2D)
 from keras.models import Model, Sequential
 from keras.datasets import mnist
 from tqdm import tqdm
@@ -48,11 +50,14 @@ def create_discriminator(num_batches=128):
     model.add(LeakyReLU(alpha=0.2))
     model.add(Dropout(0.2))
     model.add(Conv2D(32, (3, 3), strides=2, padding="same"))
+    model.add(ZeroPadding2D(padding=((0, 1), (0, 1))))
     model.add(LeakyReLU(alpha=0.2))
     model.add(Dropout(0.2))
+    model.add(BatchNormalization(momentum=0.8))
     model.add(Conv2D(64, (3, 3), strides=2, padding="same"))
     model.add(LeakyReLU(alpha=0.2))
     model.add(Dropout(0.2))
+    model.add(BatchNormalization(momentum=0.8))
     model.add(Conv2D(128, (3, 3), strides=1, padding="same"))
     model.add(LeakyReLU(alpha=0.2))
     model.add(Dropout(0.2))
